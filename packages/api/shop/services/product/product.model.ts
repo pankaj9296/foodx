@@ -1,36 +1,17 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
-import { ProductType } from './product.enum';
 
 const Product = sequelize.define('Product', {
 	id: {
-		type: DataTypes.NUMBER,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true,
 	},
 	slug: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
 	title: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
-	type: {
-		type: DataTypes.ENUM({
-			values: [
-				ProductType.BOOK,
-				ProductType.BAGS,
-				ProductType.GROCERY,
-				ProductType.MEDICINE,
-				ProductType.CLOTH,
-				ProductType.CLOTHING,
-				ProductType.FURNITURE,
-				ProductType.MAKEUP,
-			]
-		}),
-		allowNull: false
-	},
-	unit: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
@@ -43,16 +24,28 @@ const Product = sequelize.define('Product', {
 		allowNull: false
 	},
 	price: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	salePrice: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	discountInPercent: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: true
+	},
+	weight: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
+	quantity: {
+		type: DataTypes.BIGINT,
+		allowNull: false
+	},
+	total: {
+		type: DataTypes.BIGINT,
+		allowNull: false
 	},
 }, {
 	timestamps: true,

@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const DeliveryDetails = sequelize.define('DeliveryDetails', {
@@ -11,7 +11,7 @@ const DeliveryDetails = sequelize.define('DeliveryDetails', {
 		allowNull: true
 	},
 	minimumOrder: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: true
 	},
 	isFree: {

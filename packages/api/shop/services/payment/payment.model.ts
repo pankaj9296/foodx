@@ -1,9 +1,9 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Payment = sequelize.define('Payment', {
 	status: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 }, {

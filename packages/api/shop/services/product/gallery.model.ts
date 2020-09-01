@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Gallery = sequelize.define('Gallery', {

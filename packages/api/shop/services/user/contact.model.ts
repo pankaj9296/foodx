@@ -1,10 +1,11 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Contact = sequelize.define('Contact', {
 	id: {
-		type: DataTypes.STRING,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true,
 	},
 	number: {
 		type: DataTypes.STRING,

@@ -1,10 +1,11 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Address = sequelize.define('Address', {
 	id: {
-		type: DataTypes.STRING,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true,
 	},
 	name: {
 		type: DataTypes.STRING,

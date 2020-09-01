@@ -1,10 +1,11 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Social = sequelize.define('Social', {
 	id: {
-		type: DataTypes.STRING,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true,
 	},
 	media: {
 		type: DataTypes.STRING,

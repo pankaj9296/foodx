@@ -10,6 +10,7 @@ import { CouponResolver } from './shop/services/coupon/coupon.resolver';
 import { CategoryResolver } from './shop/services/category/category.resolver';
 import { VendorResolver } from './shop/services/vendors/vendors.resolver';
 import sequelize from './sequelize';
+import { seed } from './shop/services/seed';
 
 const app: express.Application = express();
 const path = '/shop/graphql';
@@ -37,11 +38,17 @@ const main = async () => {
   app.listen(PORT, async () => {
     try {
       await sequelize.authenticate();
+      require('./shop/associate-model');
+      await sequelize.sync({ force: true });
       console.log('Connection has been established successfully.');
+
+      if (process.env.RUN_SEED || true) {
+        seed();
+      }
     } catch (error) {
       console.error('Unable to connect to the database:', error);
     }
-    
+
     console.log(`started http://localhost:${PORT}${path}`);
   });
 };

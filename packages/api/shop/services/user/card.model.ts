@@ -1,10 +1,11 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Card = sequelize.define('Card', {
 	id: {
-		type: DataTypes.STRING,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true,
 	},
 	name: {
 		type: DataTypes.STRING,
@@ -19,7 +20,7 @@ const Card = sequelize.define('Card', {
 		allowNull: false
 	},
 	lastFourDigit: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 }, {

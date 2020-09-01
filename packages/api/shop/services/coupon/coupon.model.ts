@@ -1,10 +1,11 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Coupon = sequelize.define('Coupon', {
 	id: {
-		type: DataTypes.NUMBER,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true
 	},
 	code: {
 		type: DataTypes.STRING,
@@ -15,15 +16,15 @@ const Coupon = sequelize.define('Coupon', {
 		allowNull: true
 	},
 	discountInPercent: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: true
 	},
 	number_of_coupon: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	number_of_used_coupon: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	status: {

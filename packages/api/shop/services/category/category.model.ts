@@ -1,10 +1,11 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Category = sequelize.define('Category', {
 	id: {
-		type: DataTypes.NUMBER,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true
 	},
 	title: {
 		type: DataTypes.STRING,
@@ -23,7 +24,7 @@ const Category = sequelize.define('Category', {
 		allowNull: false
 	},
 	itemCount: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: true
 	},
 }, {

@@ -1,37 +1,38 @@
-import { DataTypes } from 'sequelize/types';
+import { DataTypes } from 'sequelize';
 import sequelize from '../../../sequelize';
 
 const Order = sequelize.define('Order', {
 	id: {
-		type: DataTypes.NUMBER,
-		allowNull: false
+		type: DataTypes.BIGINT,
+		allowNull: false,
+		primaryKey: true,
 	},
 	userId: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	status: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	deliveryTime: {
-		type: DataTypes.STRING,
+		type: DataTypes.DATE,
 		allowNull: false
 	},
 	amount: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	subtotal: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	discount: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	deliveryFee: {
-		type: DataTypes.NUMBER,
+		type: DataTypes.BIGINT,
 		allowNull: false
 	},
 	deliveryAddress: {
@@ -39,7 +40,7 @@ const Order = sequelize.define('Order', {
 		allowNull: false
 	},
 	date: {
-		type: DataTypes.STRING,
+		type: DataTypes.DATE,
 		allowNull: false
 	},
 }, {
