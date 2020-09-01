@@ -7,7 +7,7 @@ export default class Product {
   id: string;
 
   @Field()
-  name: string;
+  title: string;
 
   @Field()
   image: string;

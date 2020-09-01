@@ -43,7 +43,7 @@ const main = async () => {
       console.log('Connection has been established successfully.');
 
       if (process.env.RUN_SEED || true) {
-        seed();
+        await seed();
       }
     } catch (error) {
       console.error('Unable to connect to the database:', error);
