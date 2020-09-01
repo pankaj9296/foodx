@@ -16,12 +16,11 @@ export const seed = async () => {
 			const childGroceryCategories = category.children?.filter((cc) => cc.type === 'grocery');
 
 			if (childGroceryCategories && childGroceryCategories.length) {
-				Promise.all(
-					childGroceryCategories.map(async (cgc: any) => {
-						cgc.CategoryId = rootCategory.id;
-						await Models.CategoryModel.create(cgc);
-					})
+				const cgc = await Promise.all(
+					childGroceryCategories.map(async (cgc) => Models.CategoryModel.create(cgc))
 				);
+
+				rootCategory.setCategories(cgc);
 			}
 		}
 	}
