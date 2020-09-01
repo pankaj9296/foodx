@@ -18,6 +18,27 @@ const Coupon = sequelize.define('Coupon', {
 		type: DataTypes.NUMBER,
 		allowNull: true
 	},
+	number_of_coupon: {
+		type: DataTypes.NUMBER,
+		allowNull: false
+	},
+	number_of_used_coupon: {
+		type: DataTypes.NUMBER,
+		allowNull: false
+	},
+	status: {
+		type: DataTypes.ENUM({
+			values: [
+				"active",
+				"revoked"
+			]
+		}),
+		allowNull: false,
+	},
+	expiration_date: {
+		type: DataTypes.DATE,
+		allowNull: false,
+	},
 }, {
 	timestamps: true,
 });
