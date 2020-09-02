@@ -59,15 +59,9 @@ export const seed = async () => {
 			discountInPercent: product.discountInPercent,
 			description: product.description.trim(),
 			image: product.image,
+			gallery: product.gallery,
 			quantity: 10,
 		});
-
-		await productModel.setGalleries([
-			galleryModel,
-			galleryModel,
-			galleryModel,
-			galleryModel,
-		]);
 
 		const categoriesToAdd = await Promise.all(
 			product.categories.map(({ slug }) => Models.CategoryModel.findOne({ where: { slug } }))

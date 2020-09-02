@@ -2,19 +2,20 @@ import { Resolver, Query, Arg, Int, ObjectType } from 'type-graphql';
 import { createProductSamples } from './product.sample';
 import Product, { ProductResponse } from './product.type';
 import { filterItems, getRelatedItems } from '../../helpers/filter';
+import Models from '../models';
 
 @Resolver()
 export class ProductResolver {
   private readonly items: Product[] = createProductSamples();
 
-  @Query({ description: 'Get all the products' })
-  products(
+  @Query(() => ProductResponse, { description: 'Get all the products' })
+  async products(
     @Arg('limit', (type) => Int, { defaultValue: 10 }) limit: number,
     @Arg('offset', (type) => Int, { defaultValue: 0 }) offset: number,
     @Arg('type', { nullable: true }) type?: string,
     @Arg('text', { nullable: true }) text?: string,
     @Arg('category', { nullable: true }) category?: string
-  ): ProductResponse {
+  ): Promise<ProductResponse> {
     const total = this.items.length;
     const filteredData = filterItems(
       this.items,
@@ -24,6 +25,14 @@ export class ProductResolver {
       type,
       category
     );
+    const query: any = {};
+    text && (query.text = text);
+    type && (query.type = type);
+    category && (query.category = category);
+    const a = await Models.CategoryModel.findAll({
+      where: query,
+      include: [Models.UserModel],
+    });
     return new ProductResponse({
       total: total,
       ...filteredData,
