@@ -38,11 +38,13 @@ const main = async () => {
   app.listen(PORT, async () => {
     try {
       await sequelize.authenticate();
-      require('./shop/associate-model');
-      await sequelize.sync({ force: true });
       console.log('Connection has been established successfully.');
+      require('./shop/associate-model');
 
-      if (process.env.RUN_SEED || true) {
+      if (process.env.SYNC_MODELS) {
+        await sequelize.sync({ force: true });
+      }
+      if (process.env.RUN_SEED) {
         await seed();
       }
     } catch (error) {

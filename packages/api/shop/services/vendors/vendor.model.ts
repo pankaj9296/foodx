@@ -6,22 +6,15 @@ const Vendor = sequelize.define('Vendor', {
 		type: DataTypes.BIGINT,
 		allowNull: false,
 		primaryKey: true,
+		autoIncrement: true,
 	},
 	slug: {
-		type: DataTypes.STRING,
-		allowNull: false
-	},
-	type: {
 		type: DataTypes.STRING,
 		allowNull: false
 	},
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false
-	},
-	categories: {
-		type: DataTypes.ARRAY(DataTypes.STRING),
-		allowNull: true
 	},
 	logoUrl: {
 		type: DataTypes.STRING,

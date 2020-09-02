@@ -1,9 +1,12 @@
+import moment from "moment";
+import { Op } from "sequelize";
+
 import Models from './models';
 import loadCategories from './category/category.sample';
 import { createProductSamples } from './product/product.sample';
-
-
-Models.CategoryModel.truncate();
+import loadCoupons from './coupon/coupon.sample';
+import loadOrders from './order/order.sample';
+import { vendorSamples } from "./vendors/vendors.sample";
 
 export const seed = async () => {
 	console.log('RUNNING SEED');
@@ -14,6 +17,7 @@ export const seed = async () => {
 	await Models.OrderModel.truncate({ cascade: true });
 	await Models.VendorModel.truncate({ cascade: true });
 	await Models.ProductModel.truncate({ cascade: true });
+	await Models.CouponModel.truncate({ cascade: true });
 
 	const categories = loadCategories();
 	
@@ -71,5 +75,91 @@ export const seed = async () => {
 		productModel.setCategories(categoriesToAdd.filter((c) => !!c));
 
 		await productModel.save();
+	}
+
+	//coupon
+	const coupons = loadCoupons();
+
+	const product = await Models.ProductModel.findOne();
+
+	for (const coupon of coupons) {
+		const c:any = coupon;
+		const couponModel:any = await Models.CouponModel.create({
+			id: c.id,
+			title: c.title,
+			code: c.code,
+			image: c.image,
+			discountInPercent: c.discountInPercent,
+			number_of_coupon: c.number_of_coupon,
+			number_of_used_coupon: c.number_of_used_coupon,
+			expiration_date: c.expiration_date
+		});
+
+		await couponModel.setProducts([product]);
+
+		await couponModel.save();
+	}
+
+	//orders
+	const orders:any[] = loadOrders();
+
+	for (const order of orders) {
+		const orderModel:any = await Models.OrderModel.create({
+			id: order.id,
+			deliveryTime: moment(order.deliveryTime, "Do MMMM").toDate(),
+			amount: order.amount,
+			date: moment(order.date, "Do MMMM YYYY"),
+			deliveryAddress: order.deliveryAddress,
+			subtotal: order.subtotal,
+			discount: order.discount,
+			deliveryFee: order.deliveryFee,
+			status: order.status,
+		});
+
+		const products = await Promise.all(
+			order.products.map((p: any) => Models.ProductModel.findOne({ where: { id: p.id } }))
+		);
+
+		// TODO: set user
+
+		await orderModel.setProducts(products);
+
+		await orderModel.save();
+	}
+
+
+
+	//vendors
+	const vendors: any[] = vendorSamples;
+	const usedProductIds = [1];
+
+	for (const vendor of vendors) {
+		const vendorModel: any = await Models.VendorModel.create({
+			name: vendor.name,
+			slug: vendor.slug,
+			previewUrl: vendor.previewUrl,
+			thumbnailUrl: vendor.thumbnailUrl,
+			description: vendor.description,
+			promotion: vendor.promotion,
+			address: vendor.address,
+		});
+
+		const product: any = await Models.ProductModel.findOne({
+			where: {
+				id: {
+					[Op.notIn]: usedProductIds,
+				}
+			}
+		});
+
+		if (product) {
+			usedProductIds.push(product.id);
+
+			await vendorModel.setProducts([
+				product
+			]);
+		}
+
+		await vendorModel.save();
 	}
 }

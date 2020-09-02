@@ -15,7 +15,6 @@ import AddressModel from './user/address.model';
 import CardModel from './user/card.model';
 import ContactModel from './user/contact.model';
 
-import DeliveryDetailsModel from './vendors/deliveryDetails.model';
 import VendorModel from './vendors/vendor.model';
 
 const Models = {
@@ -36,7 +35,6 @@ const Models = {
 	CardModel,
 	ContactModel,
 
-	DeliveryDetailsModel,
 	VendorModel,
 };
 

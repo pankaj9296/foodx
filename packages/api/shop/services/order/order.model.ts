@@ -7,10 +7,6 @@ const Order = sequelize.define('Order', {
 		allowNull: false,
 		primaryKey: true,
 	},
-	userId: {
-		type: DataTypes.BIGINT,
-		allowNull: false
-	},
 	status: {
 		type: DataTypes.BIGINT,
 		allowNull: false
@@ -20,23 +16,23 @@ const Order = sequelize.define('Order', {
 		allowNull: false
 	},
 	amount: {
-		type: DataTypes.BIGINT,
+		type: DataTypes.DOUBLE,
 		allowNull: false
 	},
 	subtotal: {
-		type: DataTypes.BIGINT,
+		type: DataTypes.DOUBLE,
 		allowNull: false
 	},
 	discount: {
-		type: DataTypes.BIGINT,
+		type: DataTypes.DOUBLE,
 		allowNull: false
 	},
 	deliveryFee: {
-		type: DataTypes.BIGINT,
+		type: DataTypes.DOUBLE,
 		allowNull: false
 	},
 	deliveryAddress: {
-		type: DataTypes.STRING,
+		type: DataTypes.STRING(5000),
 		allowNull: false
 	},
 	date: {
