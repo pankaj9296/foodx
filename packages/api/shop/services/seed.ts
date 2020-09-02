@@ -131,6 +131,7 @@ export const seed = async () => {
 
 	//orders
 	const orders:any[] = loadOrders();
+	const user:any = await Models.UserModel.findOne();
 
 	for (const order of orders) {
 		const orderModel:any = await Models.OrderModel.create({
@@ -149,13 +150,11 @@ export const seed = async () => {
 			order.products.map((p: any) => Models.ProductModel.findOne({ where: { id: p.id } }))
 		);
 
-		// TODO: set user
-
+		await orderModel.setUser(user);
 		await orderModel.setProducts(products);
 
 		await orderModel.save();
 	}
-
 
 
 	//vendors
