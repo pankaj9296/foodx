@@ -3,6 +3,7 @@ import CategoryModel from './category/category.model';
 import CouponModel from './coupon/coupon.model';
 
 import OrderModel from './order/order.model';
+import ProductOrderModel from './order/product-order.model';
 
 import PaymentModel from './payment/payment.model';
 
@@ -23,6 +24,7 @@ const Models = {
 	CouponModel,
 
 	OrderModel,
+	ProductOrderModel,
 
 	PaymentModel,
 
