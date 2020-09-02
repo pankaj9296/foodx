@@ -6,6 +6,7 @@ import loadCategories from './category/category.sample';
 import { createProductSamples } from './product/product.sample';
 import loadCoupons from './coupon/coupon.sample';
 import loadOrders from './order/order.sample';
+import loadUsers from './user/user.sample';
 import { vendorSamples } from "./vendors/vendors.sample";
 
 export const seed = async () => {
@@ -76,6 +77,40 @@ export const seed = async () => {
 
 		await productModel.save();
 	}
+
+	const users = loadUsers();
+	Promise.all(
+		users.map(async (user: any) => {
+			console.log('user created');
+			const {
+				address: addresses,
+				contact: contacts,
+				card: cards,
+				...rest
+			} = user;
+
+			const createdUser: any = await Models.UserModel.create(rest);
+			Promise.all(
+				addresses.map(async (address: any) => {
+					const na = await Models.AddressModel.create(address);
+					createdUser.setAddresses(na);
+				})
+			);
+			Promise.all(
+				contacts.map(async (contact: any) => {
+					console.log(contact);
+					const nc = await Models.ContactModel.create(contact);
+					createdUser.setContacts(nc);
+				})
+			);
+			Promise.all(
+				cards.map(async (card: any) => {
+					const nc = await Models.CardModel.create(card);
+					createdUser.setCards(nc);
+				})
+			);
+		})
+	);
 
 	//coupon
 	const coupons = loadCoupons();
@@ -163,3 +198,4 @@ export const seed = async () => {
 		await vendorModel.save();
 	}
 }
+
