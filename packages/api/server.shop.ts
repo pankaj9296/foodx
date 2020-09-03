@@ -9,7 +9,7 @@ import { OrderResolver } from './shop/services/order/order.resolver';
 import { CouponResolver } from './shop/services/coupon/coupon.resolver';
 import { CategoryResolver } from './shop/services/category/category.resolver';
 import { VendorResolver } from './shop/services/vendors/vendors.resolver';
-import sequelize from './sequelize';
+// import sequelize from './sequelize';
 
 const app: express.Application = express();
 const path = '/shop/graphql';
@@ -36,7 +36,7 @@ const main = async () => {
 
   app.listen(PORT, async () => {
     try {
-      await sequelize.authenticate();
+      // await sequelize.authenticate();
       console.log('Connection has been established successfully.');
     } catch (error) {
       console.error('Unable to connect to the database:', error);
